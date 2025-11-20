@@ -1,0 +1,36 @@
+{
+  "senses": {
+    "vision": [
+      "Entrada visual: señales ópticas directas desde la retina al procesador central.",
+      "Vía óptica: transmite mapas espaciales y luminosidad al córtex visual.",
+      "Ruta visual: codifica contraste, color y movimiento para interpretación." 
+    ],
+    "olfato": [
+      "Detección química: identifica moléculas volátiles presentes en el aire.",
+      "Ruta olfativa: discrimina patrones de olor para reconocimiento ambiental.",
+      "Centro olfativo: procesa trazas y memorias olfativas asociadas." 
+    ],
+    "audicion": [
+      "Transmisión sonora: traduce ondas de presión en patrones temporales.",
+      "Vía auditiva: separa frequencias y localiza fuentes sonoras.",
+      "Procesador acústico: detecta ritmo y timbre para reconocimiento." 
+    ],
+    "tacto": [
+      "Matriz táctil: codifica presión, vibración y temperatura desde la piel.",
+      "Entrada somatosensorial: proporciona retroalimentación de contacto y textura.",
+      "Ruta táctil: integra posición y fuerza para control motor fino." 
+    ],
+    "gusto": [
+      "Quimio-recepción: discrimina sabores básicos y su intensidad.",
+      "Banda gustativa: integra sabor con señales de textura y temperatura.",
+      "Entrada gustativa: ligada a memoria y respuestas hedonistas." 
+    ]
+  },
+  "hotspots": [
+    {"id":"h1","titulo":"Nervio Óptico","sentido":"vision"},
+    {"id":"h2","titulo":"Bulbo Olfatorio","sentido":"olfato"},
+    {"id":"h3","titulo":"Tracto Auditivo","sentido":"audicion"},
+    {"id":"h4","titulo":"Red Somatosensorial","sentido":"tacto"},
+    {"id":"h5","titulo":"Núcleo Gustativo","sentido":"gusto"}
+  ]
+}
