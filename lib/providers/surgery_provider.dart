@@ -1,6 +1,7 @@
 // lib/providers/surgery_provider.dart
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import '../models/nerve_model.dart';
@@ -59,68 +60,59 @@ class SurgeryProvider extends ChangeNotifier {
       final List<Nerve> tmp = [];
       if (parsed.containsKey('hotspots')) {
         final List<dynamic> list = parsed['hotspots'];
-        // Shuffle descriptions per sense to pick unique ones
-        final rndSeed = DateTime.now().millisecondsSinceEpoch;
-        int rndIdxOffset = (rndSeed % 100);
+        
+        // Crear lista de posiciones fijas (5 círculos completos como en la imagen)
+        final List<Map<String, double>> fixedPositions = [
+          {'x': 0.28, 'y': 0.18},  // top-left
+          {'x': 0.52, 'y': 0.12},  // top-center
+          {'x': 0.74, 'y': 0.22},  // top-right
+          {'x': 0.32, 'y': 0.44},  // mid-left
+          {'x': 0.70, 'y': 0.68},  // bottom-right
+        ];
+        
+        // Mezclar las posiciones aleatoriamente
+        fixedPositions.shuffle();
 
-        for (final item in list) {
+        for (int i = 0; i < list.length; i++) {
+          final item = list[i];
           if (item is Map<String, dynamic>) {
-            final id = item['id'] as String? ?? 'h_unknown_${tmp.length}';
-            final titulo = item['titulo'] as String? ?? 'Nervio ${tmp.length + 1}';
+            final id = item['id'] as String? ?? 'h_unknown_$i';
+            final titulo = item['titulo'] as String? ?? 'Nervio ${i + 1}';
             final sentido = (item['sentido'] as String? ?? 'unknown').toString();
-            // pick a non-repeating description from senseMap[sentido]
+            
+            // Seleccionar una descripción aleatoria del sentido
             String chosenDesc = 'Descripción no disponible.';
             if (senseMap.containsKey(sentido) && senseMap[sentido]!.isNotEmpty) {
               final listDesc = List<String>.from(senseMap[sentido]!);
-              // select index using offset so picks differ per nerve
-              final idx = (rndIdxOffset + tmp.length) % listDesc.length;
-              chosenDesc = listDesc[idx];
+              listDesc.shuffle();
+              chosenDesc = listDesc.first;
             }
 
-            // random-ish position inside brain box (avoid edges) — keep deterministic distribution
-            final posX = 0.2 + ((tmp.length * 0.18) % 0.6);
-            final posY = 0.2 + ((tmp.length * 0.31) % 0.6);
+            // Asignar posición de la lista mezclada
+            final pos = fixedPositions[i % fixedPositions.length];
+            final posX = pos['x']!;
+            final posY = pos['y']!;
 
-            tmp.add(Nerve(id: id, name: titulo, description: chosenDesc, isVital: false, sense: sentido, posX: posX, posY: posY));
+            tmp.add(Nerve(
+              id: id, 
+              name: titulo, 
+              description: chosenDesc, 
+              isVital: false, 
+              sense: sentido, 
+              posX: posX, 
+              posY: posY
+            ));
           }
         }
       }
-      // Ensure exactly 5 nerves; if parsed list differs, trim or pad from senses
+      
+      // Ensure exactly 5 nerves
       _nerves = tmp;
       if (_nerves.length > 5) _nerves = _nerves.sublist(0, 5);
-      // If fewer than 5, try to build missing ones from senseMap keys
-      if (_nerves.length < 5 && senseMap.isNotEmpty) {
-        for (final sentido in ['vision', 'olfato', 'audicion', 'tacto', 'gusto']) {
-          if (_nerves.any((n) => n.sense == sentido)) continue;
-          final listDesc = senseMap[sentido] ?? ['Descripción no disponible.'];
-          final desc = listDesc.first;
-          final id = 'h_auto_$sentido';
-          final titulo = 'Auto $sentido';
-          _nerves.add(Nerve(id: id, name: titulo, description: desc, isVital: false, sense: sentido, posX: 0.4, posY: 0.4));
-        }
-      }
-
-      // Choose a random target nerve for this run (unique and random)
-      if (_nerves.isNotEmpty) {
-        final randIndex = DateTime.now().millisecondsSinceEpoch % _nerves.length;
-        for (int i=0;i<_nerves.length;i++) {
-          _nerves[i].isTarget = (i == randIndex);
-        }
-      }
-
-      // Override positions with a fixed layout for clarity (matches example):
-      // Order: [top-left, top-center, top-right, mid-left, bottom-right]
-      final fixedPositions = [
-        {'x': 0.28, 'y': 0.18},
-        {'x': 0.52, 'y': 0.12},
-        {'x': 0.74, 'y': 0.22},
-        {'x': 0.32, 'y': 0.44},
-        {'x': 0.70, 'y': 0.68},
-      ];
-      for (int i = 0; i < _nerves.length && i < fixedPositions.length; i++) {
-        final p = fixedPositions[i];
-        _nerves[i].posX = (p['x'] as double);
-        _nerves[i].posY = (p['y'] as double);
+      
+      // Marcar solo el nervio de visión como objetivo correcto
+      for (int i = 0; i < _nerves.length; i++) {
+        _nerves[i].isTarget = (_nerves[i].sense == 'vision');
       }
     } catch (e) {
       // If loading fails, fallback to gemini/fallback data

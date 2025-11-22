@@ -1,29 +1,44 @@
 {
   "senses": {
     "vision": [
-      "Entrada visual: señales ópticas directas desde la retina al procesador central.",
-      "Vía óptica: transmite mapas espaciales y luminosidad al córtex visual.",
-      "Ruta visual: codifica contraste, color y movimiento para interpretación." 
+      "Señales ópticas directas desde la retina al procesador central.",
+      "Transmite mapas espaciales y luminosidad al córtex.",
+      "Codifica contraste, color y movimiento para interpretación.",
+      "Procesa información lumínica y patrones de reconocimiento.",
+      "Convierte estímulos fotónicos en impulsos neuronales interpretables.",
+      "Transporta datos desde el ojo hasta el cerebro central."
     ],
     "olfato": [
-      "Detección química: identifica moléculas volátiles presentes en el aire.",
-      "Ruta olfativa: discrimina patrones de olor para reconocimiento ambiental.",
-      "Centro olfativo: procesa trazas y memorias olfativas asociadas." 
+      "Identifica moléculas volátiles presentes en el aire.",
+      "Discrimina patrones para reconocimiento ambiental.",
+      "Procesa trazas y memorias asociadas.",
+      "Analiza compuestos aromáticos y genera respuestas emocionales.",
+      "Detecta partículas químicas suspendidas en el ambiente.",
+      "Traduce señales químicas en percepciones sensoriales."
     ],
     "audicion": [
-      "Transmisión sonora: traduce ondas de presión en patrones temporales.",
-      "Vía auditiva: separa frequencias y localiza fuentes sonoras.",
-      "Procesador acústico: detecta ritmo y timbre para reconocimiento." 
+      "Traduce ondas de presión en patrones temporales.",
+      "Separa frecuencias y localiza fuentes sonoras.",
+      "Detecta ritmo y timbre para reconocimiento.",
+      "Convierte vibraciones mecánicas en señales eléctricas.",
+      "Transmite información de frecuencia y amplitud.",
+      "Procesa patrones acústicos para interpretación del habla."
     ],
     "tacto": [
-      "Matriz táctil: codifica presión, vibración y temperatura desde la piel.",
-      "Entrada somatosensorial: proporciona retroalimentación de contacto y textura.",
-      "Ruta táctil: integra posición y fuerza para control motor fino." 
+      "Codifica presión, vibración y temperatura desde la piel.",
+      "Proporciona retroalimentación de contacto y textura.",
+      "Integra posición y fuerza para control motor fino.",
+      "Detecta estímulos mecánicos y térmicos en la superficie corporal.",
+      "Transmite sensaciones de presión, dolor y temperatura.",
+      "Analiza texturas y propiedades físicas de objetos."
     ],
     "gusto": [
-      "Quimio-recepción: discrimina sabores básicos y su intensidad.",
-      "Banda gustativa: integra sabor con señales de textura y temperatura.",
-      "Entrada gustativa: ligada a memoria y respuestas hedonistas." 
+      "Discrimina sabores básicos y su intensidad.",
+      "Integra sabor con señales de textura y temperatura.",
+      "Ligada a memoria y respuestas hedonistas.",
+      "Identifica compuestos químicos en alimentos.",
+      "Transmite información de dulce, salado, amargo, ácido y umami.",
+      "Analiza propiedades químicas de sustancias ingeridas."
     ]
   },
   "hotspots": [

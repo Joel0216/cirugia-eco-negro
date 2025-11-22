@@ -1,5 +1,6 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,12 @@ import 'screens/end_screen.dart';
 import 'providers/surgery_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Forzar orientación horizontal
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   runApp(const MyApp());
 }
 

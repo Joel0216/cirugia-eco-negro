@@ -170,25 +170,26 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
 
   Widget _buildBrainAndNerves(BuildContext context, SurgeryProvider provider) {
     return LayoutBuilder(builder: (context, constraints) {
-      final size = min(constraints.maxWidth, constraints.maxHeight);
+      // Hacer el cerebro más grande - usar casi todo el espacio disponible
+      final size = min(constraints.maxWidth * 0.85, constraints.maxHeight * 1.1);
       final centerX = constraints.maxWidth / 2;
       final centerY = constraints.maxHeight / 2;
-      final brainWidth = size * 0.95; // make the brain larger
+      final brainWidth = size * 1.05;
 
       return Stack(
         fit: StackFit.expand,
         alignment: Alignment.center,
         children: [
-          // Brain image as background
+          // Brain image as background - más grande
           Center(
             child: Container(
-              width: size * 0.9,
-              height: size * 0.9,
+              width: size * 1.15,
+              height: size * 1.15,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/imagenes/Cerebro.png'),
                   fit: BoxFit.contain,
-                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.25), BlendMode.darken),
+                  colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.darken),
                 ),
               ),
             ),
@@ -228,9 +229,9 @@ class _SurgeryScreenState extends State<SurgeryScreen> {
         movedToCenter = true;
       }
 
-      // Render as filled circle. If movedToCenter -> bigger. If laser is charged and this is selected -> red.
-      final sizeCircle = movedToCenter ? 72.0 : (isSelected ? 56.0 : 44.0);
-      final borderWidth = movedToCenter ? 4.0 : (isSelected ? 3.5 : 2.5);
+      // Render as filled circle - más pequeños para no tapar el cerebro
+      final sizeCircle = movedToCenter ? 48.0 : (isSelected ? 36.0 : 28.0);
+      final borderWidth = movedToCenter ? 3.0 : (isSelected ? 2.5 : 2.0);
       final isChargedAndSelected = provider.isLaserCharged && isSelected;
       final fillColor = isChargedAndSelected ? Colors.red : const Color(0xFF00FFFF);
       final shadowColor = isChargedAndSelected ? Colors.red.withOpacity(0.28) : Colors.white.withOpacity(isSelected ? 0.25 : 0.12);
